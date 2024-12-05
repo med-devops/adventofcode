@@ -8,7 +8,6 @@ with open('input', 'r') as file:
 rules, printlists = content.split('\n\n')
 sum = 0
 
-
 toCorret = []
 
 for pl in printlists.split('\n'):
@@ -21,27 +20,26 @@ for pl in printlists.split('\n'):
             if a.index(rule[0]) > a.index(rule[1]):
                 flag = False
                 toCorret.append(a)
-                break
-                
-                
-
+                break              
+            
     if flag:
         sum += int(middle)
 
 sum2 = 0
 print(sum)
-for t in toCorret:
-    t2 = t
-    brokenRules = []
-    for r in rules.split('\n'):
+
+def swapPlaces(brokenRules, t):
+    for r in brokenRules:
         rule = r.split('|')
-        if rule[0] in t and rule[1] in t:
-            brokenRules.append(rule)
+        if rule[0] in t and rule[1] in t and t.index(rule[0]) > t.index(rule[1]):
+            t[t.index(rule[0])] , t[t.index(rule[1])] = t[t.index(rule[1])] , t[t.index(rule[0])]
 
-    for b in brokenRules:
-        rule = r.split('|') 
-        t2.index[rule[0]] , t2.index[rule[1]] = t2.index[rule[1]] , t2.index[rule[0]]
-    print(b)
-    break
+for t in toCorret:
+    brokenRules = rules.split('\n')
+    for i in range(4):
+        swapPlaces(brokenRules, t)
+ 
+    middle = t[int((len(t) / 2))]
+    sum2 += int(middle)
 
-#print(sum2)
+print(sum2)

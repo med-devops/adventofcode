@@ -1,48 +1,38 @@
 import os 
 import numpy as np
 
-f = open('input', 'r').readlines()
-f = [line.strip() for line in f]  # Remove newlines and create list of strings
+G = open('input', 'r').readlines()
+p1 = 0
+p2 = 0
+R = len(G)
+C = len(G[0])
+for r in range(R):
+    for c in range(C):
+        if c+3<C and G[r][c]=='X' and G[r][c+1]=='M' and G[r][c+2]=='A' and G[r][c+3]=='S':
+            p1 += 1
+        if r+3<R and G[r][c]=='X' and G[r+1][c]=='M' and G[r+2][c]=='A' and G[r+3][c]=='S':
+            p1 += 1
+        if r+3<R and c+3<C and G[r][c]=='X' and G[r+1][c+1]=='M' and G[r+2][c+2]=='A' and G[r+3][c+3]=='S':
+            p1 += 1
+        if c+3<C and G[r][c]=='S' and G[r][c+1]=='A' and G[r][c+2]=='M' and G[r][c+3]=='X':
+            p1 += 1
+        if r+3<R and G[r][c]=='S' and G[r+1][c]=='A' and G[r+2][c]=='M' and G[r+3][c]=='X':
+            p1 += 1
+        if r+3<R and c+3<C and G[r][c]=='S' and G[r+1][c+1]=='A' and G[r+2][c+2]=='M' and G[r+3][c+3]=='X':
+            p1 += 1
+        if r-3>=0 and c+3<C and G[r][c]=='S' and G[r-1][c+1]=='A' and G[r-2][c+2]=='M' and G[r-3][c+3]=='X':
+            p1 += 1
+        if r-3>=0 and c+3<C and G[r][c]=='X' and G[r-1][c+1]=='M' and G[r-2][c+2]=='A' and G[r-3][c+3]=='S':
+            p1 += 1
 
-total = 0
+        if r+2<R and c+2<C and G[r][c]=='M' and G[r+1][c+1]=='A' and G[r+2][c+2]=='S' and G[r+2][c]=='M' and G[r][c+2]=='S':
+            p2 += 1
+        if r+2<R and c+2<C and G[r][c]=='M' and G[r+1][c+1]=='A' and G[r+2][c+2]=='S' and G[r+2][c]=='S' and G[r][c+2]=='M':
+            p2 += 1
+        if r+2<R and c+2<C and G[r][c]=='S' and G[r+1][c+1]=='A' and G[r+2][c+2]=='M' and G[r+2][c]=='M' and G[r][c+2]=='S':
+            p2 += 1
+        if r+2<R and c+2<C and G[r][c]=='S' and G[r+1][c+1]=='A' and G[r+2][c+2]=='M' and G[r+2][c]=='S' and G[r][c+2]=='M':
+            p2 += 1
 
-# Get dimensions from input
-height = len(f)
-width = len(f[0]) if height > 0 else 0
-
-# Convert to numpy array
-matrix = np.array([list(line) for line in f])
-print("Input matrix:")
-print(matrix)
-
-word = "XMAS"
-word2 = "SAMX"
-vertical = []
-for i in range(width):
-    line = ""
-    for l in f:
-        line = line + l[i]
-    vertical.append(line)
-
-def check(f):
-    count = 0
-    for l in f:
-        i = 0
-        i2 = 0
-        for ch in l:
-            if ch == word[i]:
-                i += 1
-                if i == len(word) - 1:
-                    count += 1
-                    i = 0
-            if ch == word2[i2]:
-                i2 += 1
-                if i2 == len(word2) - 1:
-                    count += 1
-                    i2 = 0    
-    return count                    
-total += check(f)
-total += check(vertical)
-total += check(matrix)
-    
-print(total)
+print(p1)
+print(p2)
