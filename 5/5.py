@@ -36,6 +36,7 @@ def swapPlaces(brokenRules, t):
 
 for t in toCorret:
     brokenRules = rules.split('\n')
+    
     for i in range(4):
         swapPlaces(brokenRules, t)
  
